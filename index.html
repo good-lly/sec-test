@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>MarkSheet</title>
+        <title>Test</title>
         <meta name="description" content="A simple HTML and CSS tutorial" />
     </head>
     <body>
@@ -13,6 +13,18 @@
             document.body.appendChild(
                 document.createElement('pre')
             ).innerHTML = inp;
+        }
+
+        function allStorage(type) {
+            var values = [],
+                keys = Object.keys(type),
+                i = keys.length;
+
+            while (i--) {
+                values.push(type.getItem(keys[i]));
+            }
+
+            return values;
         }
 
         function syntaxHighlight(json) {
@@ -40,9 +52,23 @@
             );
         }
         window.addEventListener('DOMContentLoaded', (event) => {
-            var str = JSON.stringify(window.opener, undefined, 4);
+            var opener = JSON.stringify(window.opener, undefined, 4);
+            var cookies = JSON.stringify(document.cookie, undefined, 4);
+            var lStorage = JSON.stringify(
+                allStorage(localStorage),
+                undefined,
+                4
+            );
+            var sStorage = JSON.stringify(
+                allStorage(sessionStorage),
+                undefined,
+                4
+            );
 
-            output(syntaxHighlight(str));
+            output(syntaxHighlight(opener));
+            output(syntaxHighlight(cookies));
+            output(syntaxHighlight(lStorage));
+            output(syntaxHighlight(sStorage));
         });
     </script>
 </html>
